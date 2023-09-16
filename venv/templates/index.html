@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Finance
+{% endblock %}
+
+{% block main %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-start">Symbol</th>
+            <th class="text-start">Name</th>
+            <th class="text-end">Shares</th>
+            <th class="text-end">Price</th>
+            <th class="text-end">TOTAL</th>
+            <th class="text-center">Trade</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for purchase in purchases %}
+        <tr>
+            <td class="text-start">{{ purchase.stock_symbol }}</td>
+            <td class="text-start">{{ purchase.stock_name }}</td>
+            <td class="text-end">{{ purchase.number_of_shares }}</td>
+            <td class="text-end">{{ purchase.price_update }}</td>
+            <td class="text-end">{{ purchase.stock_value | usd}}</td>
+            <td class="text-center">
+                <form action="/" method="post" class="form-group-sm">
+                    <input type="hidden" name="stock_symbol" value="{{ purchase.stock_symbol }}">
+                    <input type="hidden" name="number_of_shares" value="{{ purchase.number_of_shares }}">
+                    <input type="number" required name="quantity" min="1" autocomplete="off"
+                        class="d-inline form-control form-control-sm w-25" placeholder="Qty">
+                    <button type="submit" class="btn btn-success btn-sm" name="action" value="buy">Buy</button>
+                    <button type="submit" class="btn btn-danger btn-sm" name="action" value="sell">Sell</button>
+                </form>
+            </td>
+        </tr>
+        {%endfor%}
+
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">Cash</td>
+            <td class="border-0 text-end">
+                {{ total_cash | usd }}</td>
+        </tr>
+        <tr>
+            <td class="border-0 fw-bold text-end" colspan="4">TOTAL</td>
+            <td class="border-0 w-bold text-end">
+                {{ assets | usd}}</td>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}

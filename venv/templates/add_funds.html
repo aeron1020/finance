@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Add Funds
+{% endblock %}
+
+{% block main %}
+<form action="/add_funds" method="post">
+    <div class="mb-3">
+        <h4>Enter Password:</h4>
+        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+    </div>
+    <button class="btn btn-primary" type="submit">Verify user</button>
+</form>
+
+{% endblock %}
